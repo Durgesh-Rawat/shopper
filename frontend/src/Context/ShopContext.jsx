@@ -87,6 +87,9 @@ const removeFromCart = async (productId,size) =>{
 
      const getTotalCartAmount = () => {
           let totalAmount = 0;
+
+           if (!Array.isArray(cartItems)) return totalAmount;
+
           cartItems.forEach(item => {
             if(item.product){
                totalAmount += item.product.new_price*item.quantity;

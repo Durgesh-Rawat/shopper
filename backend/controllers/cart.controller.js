@@ -89,3 +89,15 @@ export const getcart = async(req,res)=>{
     return res.status(500).json({ message: "Server error" });
   }
 }
+
+
+export const clear = async(req,res)=>{
+  try {
+    // Delete all cart items for the logged-in user
+    await Cart.deleteMany({ user: req.user.id });
+    res.status(200).json({ message: "Cart cleared successfully" });
+  } catch (err) {
+    console.error("Error clearing cart:", err);
+    res.status(500).json({ message: "Failed to clear cart" });
+  }
+}

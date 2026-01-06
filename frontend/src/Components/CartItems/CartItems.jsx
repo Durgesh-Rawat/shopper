@@ -8,8 +8,12 @@ import { toast } from 'react-toastify';
 export const CartItems = () => {
     const {updateCartQuantity,getTotalCartAmount,cartItems,removeFromCart} = useContext(ShopContext);
     const navigate = useNavigate();
+
+        // 🔥 CRASH-PROOF FIX
+    const safeCartItems = Array.isArray(cartItems) ? cartItems : [];
+
     const handlebtn = () =>{
-        if(cartItems.length<1){
+        if(safeCartItems.length<1){
             toast.error("choose product")
         }else{
            navigate("/place-order");
@@ -30,9 +34,9 @@ export const CartItems = () => {
        <hr />
 
 
-      {cartItems.map((item)=>{
+      {safeCartItems.map((item)=>{
             if (!item?.product) return null;
-            return(<div key={item._id}>
+            return(<div key={`${item.product._id}-${item.size}`}>
                       <div className="cartitems-format cartitems-format-main">
                            <img src={item.product.image} alt="" className='carticon-product-icon'/>
                            <p>{item.product.name} [{item.size}]</p> 

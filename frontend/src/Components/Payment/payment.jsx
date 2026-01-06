@@ -5,7 +5,31 @@ import { toast } from 'react-toastify';
 
 
 export const payment = async (amount, cartItems, setCartItems, paymentMethod, deliveryAddress, navigate) => {
-   
+
+    // DELETE THE CART ITEM FROM BACKEND AFTER ORDER IS PLACED 
+    const clearCartBackend = async () => {
+        try {
+            const res = await fetch(`${backendUrl}/api/cart/clear`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    "auth-token": localStorage.getItem("auth-token"),
+                },
+            });
+
+            if (res.ok) {
+                console.log("Backend cart cleared successfully");
+            } else {
+                console.error("Failed to clear backend cart", await res.text());
+            }
+        } catch (err) {
+            console.error("Error clearing backend cart:", err);
+        }
+    };
+
+
+
+
 
     if (paymentMethod === "razorpay") {
 
@@ -57,9 +81,10 @@ export const payment = async (amount, cartItems, setCartItems, paymentMethod, de
                                 if (orderRes.ok) {
                                     toast.success("Order Placed Successfully")
                                     setCartItems([]);
+                                    await clearCartBackend();
                                     navigate('/order');
                                 } else {
-                                     toast.error('❌ Failed to save order');
+                                    toast.error('❌ Failed to save order');
                                 }
                             } catch (err) {
                                 console.error('Order save error:', err);
@@ -107,20 +132,21 @@ export const payment = async (amount, cartItems, setCartItems, paymentMethod, de
                     totalAmount: amount,
                     paymentMethod: paymentMethod,
                     deliveryAddress: deliveryAddress,
-                    status: "Order Placed",  
+                    status: "Order Placed",
                 })
             });
 
             if (orderRes.ok) {
                 toast.success("Order Placed Successfully");
                 setCartItems([]);
+                await clearCartBackend();
                 navigate('/order');
             } else {
                 toast.error('❌ Failed to save order');
             }
-        }catch(err) {
+        } catch (err) {
             console.error('Order save error:', err);
             toast.error('❌ Could not save order to database');
         }
-   }
+    }
 }

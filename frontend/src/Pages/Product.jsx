@@ -10,8 +10,9 @@ import { RelatedProducts } from '../Components/RelatedProducts/RelatedProducts.j
 export const Product = () => {
   const {all_product} = useContext(ShopContext);
   const {productId} = useParams();
-  const product = all_product.find((e) => e.id === Number(productId));
 
+  const product = all_product.find((e) => e._id.toString() === (productId));
+  //console.log(all_product)
   if (!product) return null; // 👈 VERY IMPORTANT
 
   return (

@@ -2,7 +2,6 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import jwt from "jsonwebtoken";
-import multer from "multer";
 import path from "path";
 import userRouter from "./Routes/user.route.js";
 import adminRouter from "./Routes/admin.route.js";
@@ -28,27 +27,6 @@ app.get("/",(req,res)=>{
     res.send("Express App is Running")
 })
 
-//Image Storage Engine
-
-const storage = multer.diskStorage({
-    destination: './upload/images',
-    filename:(req,file,cb)=>{
-        return cb(null,`${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`)
-    }
-})
-
-const upload = multer({storage:storage})
-
-//Creating Upload Endpoint For Images
-
-app.use('/images',express.static('upload/images'))
-
-app.post("/upload", upload.single('product'),(req,res)=>{
-    res.json({
-        success:1,
-        image_url:`http://localhost:${port}/images/${req.file.filename}`
-    })
-})
 
 
 
@@ -83,10 +61,5 @@ app.get("/popularinwomen", async (req,res)=>{
     res.send(popular_in_women);
 })
 
-app.listen(port,(error)=>{
-   if(!error){
-    console.log("Server Running on Port"+port);
-   }else{
-    console.log("Error : "+error);
-   }
-})
+
+export default app;
