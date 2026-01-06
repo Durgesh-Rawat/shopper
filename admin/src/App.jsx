@@ -17,7 +17,7 @@ export const App = () => {
 
   return (
     <>
-      {token === "" ? <Loginsignup setToken={setToken}/> : 
+      {token === "" || token === "undefined" ? <Loginsignup setToken={setToken}/> : 
        <div>
          <Navbar setToken={setToken}/>
          <Admin token={token}/>
