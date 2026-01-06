@@ -1,0 +1,118 @@
+.placeorderMain{
+    display: flex;
+}
+
+.placeorder{
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;  
+    gap: 300px;
+    margin: 100px 10px 120px 200px;  
+    
+}
+
+.cartitems-total{
+    display: flex;
+    gap: 20px;
+}
+
+.cartitems-total h2{
+    font-weight: 500;
+    font-size: 25px;
+}
+
+
+.useradress{
+    display: flex;
+    gap: 30px;
+    flex-direction: column;
+}
+
+.useradress h2{
+    font-weight: 500;
+}
+
+.details{
+     display: flex;
+    gap: 20px;
+    flex-direction: column;
+}
+
+.details div{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.details input{
+   height: 30px;
+   width: 100%;
+}
+
+.paymentoptions{
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+}
+
+.options{
+    display: flex;
+    gap: 30px;
+}
+
+.razorpaygateway{
+   border: 2px solid rgba(0, 0, 0, 0.361);
+   padding: 5px 20px;
+   font-weight: 500;
+}
+
+.codgateway{
+   border: 2px solid rgba(0, 0, 0, 0.361);
+   padding: 5px 20px;
+   font-weight: 500;
+}
+
+.orderbtn{
+    border-radius: 10px;
+}
+
+
+
+@media(max-width:1280px){
+   .placeorder{
+      gap: 200px;
+      margin-left: 50px;
+      margin-right: 50px;
+   }
+}
+
+
+@media(max-width:1024px){
+   .placeorder{
+      gap: 200px;
+      margin-left: 50px;
+      margin-right: 50px;
+
+   }
+}
+
+
+@media(max-width:800px){
+   .placeorder{
+      gap: 80px;
+      margin-left: 20px;
+      margin-right: 20px;
+   }
+   .cartitems-total h2{
+    font-size: 20px;
+}
+}
+
+@media(max-width:800px){
+    .placeorder{
+        flex-direction: column;
+        gap: 100px;
+    }
+}
