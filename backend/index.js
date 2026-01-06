@@ -35,16 +35,19 @@ const storage = multer.memoryStorage();
 const upload = multer({storage:storage})
 
 //Creating Upload Endpoint For Images
-
-app.use('/images',express.static('upload/images'))
-
-app.post("/upload", upload.single('product'),(req,res)=>{
-    res.json({
-        success:1,
-        image_url:`http://localhost:${port}/images/${req.file.filename}`
-    })
-})
-
+app.post("/upload", upload.single("product"), (req, res) => {
+    if (!req.file) {
+        return res.status(400).json({ success: 0, message: "No file uploaded" });
+    }
+    const base64Image = req.file.buffer.toString("base64");
+     res.json({
+        success: 1,
+        filename: req.file.originalname,
+        mimetype: req.file.mimetype,
+        size: req.file.size,
+        base64: base64Image, // optional
+    });
+});
 
 
 app.use("/api/user", userRouter);
