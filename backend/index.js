@@ -81,3 +81,4 @@ app.get("/popularinwomen", async (req,res)=>{
     res.send(popular_in_women);
 })
 
+export default app;
