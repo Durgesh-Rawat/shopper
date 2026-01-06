@@ -83,10 +83,4 @@ app.get("/popularinwomen", async (req,res)=>{
     res.send(popular_in_women);
 })
 
-app.listen(port,(error)=>{
-   if(!error){
-    console.log("Server Running on Port"+port);
-   }else{
-    console.log("Error : "+error);
-   }
-})
+export default app;
