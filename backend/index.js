@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(cors());
 const port = Number(process.env.PORT) || 4000;
 // Database connection with mongoDB
-mongoose.connect(`${process.env.MONGODB_URI}/Shopper`);
+mongoose.connect(`${process.env.MONGODB_URI}/Shopper`).then(console.log("mongo connected"));
 
 //API CREATION
 
@@ -61,5 +61,8 @@ app.get("/popularinwomen", async (req,res)=>{
     res.send(popular_in_women);
 })
 
+// app.listen(port, ()=>{
+//     console.log("server is running");
+// })
 
 export default app;

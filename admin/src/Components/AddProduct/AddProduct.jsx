@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./AddProduct.css";
 import upload_area from "../../assets/upload_area.svg";
 import { backendUrl } from "../../App";
-import { supabase } from "../../supabase";
+import { uploadImageToCloudinary  } from "../../cloudinary";
 
 export const AddProduct = () => {
     const [image, setImage] = useState(null);
@@ -24,25 +24,7 @@ export const AddProduct = () => {
         setProductDetails({ ...productDetails, [e.target.name]: e.target.value });
     };
 
-    // 🔹 Upload image to Supabase
-    const uploadImageToSupabase = async (imageFile) => {
-        const fileName = `${Date.now()}-${imageFile.name}`;
 
-        const { error } = await supabase.storage
-            .from("product-images")
-            .upload(fileName, imageFile);
-
-        if (error) {
-            console.error("Supabase upload error:", error.message);
-            return null;
-        }
-
-        const { data } = supabase.storage
-            .from("product-images")
-            .getPublicUrl(fileName);
-
-        return data.publicUrl;
-    };
 
     const Add_Product = async () => {
         if (!image) {
@@ -54,7 +36,7 @@ export const AddProduct = () => {
             setLoading(true);
 
             // 1️⃣ Upload image
-            const imageUrl = await uploadImageToSupabase(image);
+            const imageUrl = await uploadImageToCloudinary(image);
             if (!imageUrl) {
                 alert("Image upload failed");
                 return;
